@@ -1,6 +1,7 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.util;
 
 import com.github.stanislavbukaevsky.patientrecordsystem.exception.ConnectionNotFoundException;
+import com.github.stanislavbukaevsky.patientrecordsystem.exception.DriverNotFoundException;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -10,11 +11,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.CONNECTION_NOT_FOUND_EXCEPTION_MESSAGE;
+import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DRIVER_NOT_FOUND_EXCEPTION_MESSAGE;
 
 public final class ConnectionManager {
     private static final String URL = "datasource.url";
     private static final String USERNAME = "datasource.username";
     private static final String PASSWORD = "datasource.password";
+    //    private static final String DRIVER = "datasource.driver-class-name";
     private static final int DEFAULT_POOL_SIZE = 10;
     private static final String POOL_SIZE = "datasource.pool.size";
     private static BlockingQueue<Connection> pool;
@@ -23,6 +26,7 @@ public final class ConnectionManager {
     }
 
     static {
+        loadDriver();
         initConnectionPool();
     }
 
@@ -66,6 +70,14 @@ public final class ConnectionManager {
                                     : method.invoke(connection, args)
             );
             pool.add(proxyConnection);
+        }
+    }
+
+    private static void loadDriver() {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new DriverNotFoundException(DRIVER_NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }
 }

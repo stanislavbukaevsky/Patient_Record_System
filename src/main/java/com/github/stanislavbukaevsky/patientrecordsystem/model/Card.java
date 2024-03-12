@@ -17,6 +17,13 @@ public class Card {
     private String appointments;
     private String analyzes;
 
+    public Card(Long id, Patient patient, String appointments, String analyzes) {
+        this.id = id;
+        this.patient = patient;
+        this.appointments = appointments;
+        this.analyzes = analyzes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
