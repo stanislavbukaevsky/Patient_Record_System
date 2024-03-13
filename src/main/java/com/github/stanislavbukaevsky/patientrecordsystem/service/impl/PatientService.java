@@ -1,5 +1,6 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.Dao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.PatientDao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.PatientRequestDto;
@@ -28,7 +29,7 @@ public class PatientService implements Service<PatientRequestDto, PatientRequest
     }
 
     @Override
-    public PatientResponseDto save(PatientRequestDto patientRequest) {
+    public PatientResponseDto save(PatientRequestDto patientRequest) throws JsonProcessingException {
         if (patientRequest == null) {
             throw new PatientNotFoundException(PATIENT_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -39,7 +40,7 @@ public class PatientService implements Service<PatientRequestDto, PatientRequest
     }
 
     @Override
-    public PatientResponseDto update(PatientRequestUpdateDto patientRequest) {
+    public PatientResponseDto update(PatientRequestUpdateDto patientRequest) throws JsonProcessingException {
         if (patientRequest == null) {
             throw new PatientNotFoundException(PATIENT_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -56,7 +57,7 @@ public class PatientService implements Service<PatientRequestDto, PatientRequest
     }
 
     @Override
-    public PatientResponseDto findById(Long id) {
+    public PatientResponseDto findById(Long id) throws JsonProcessingException {
         Patient patient = patientDao.findById(id).orElseThrow(() ->
                 new PatientNotFoundException(PATIENT_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE));
 
@@ -64,7 +65,7 @@ public class PatientService implements Service<PatientRequestDto, PatientRequest
     }
 
     @Override
-    public List<PatientResponseDto> findAll() {
+    public List<PatientResponseDto> findAll() throws JsonProcessingException {
         List<Patient> patients = patientDao.findAll();
         if (patients.isEmpty()) {
             throw new PatientNotFoundException(PATIENT_NOT_FOUND_EXCEPTION_MESSAGE);

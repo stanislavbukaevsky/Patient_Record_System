@@ -39,6 +39,13 @@ public class CardDao implements Dao<Card, Long> {
             FROM cards c
             JOIN patients p ON p.id = c.patient_id
             """;
+    //    private final static String FIND_CARDS_BY_PATIENT_ID_SQL = """
+//            SELECT c.id, c.patient_id, c.appointments, c.analyzes,
+//                   p.first_name, p.middle_name, p.last_name, p.date_birth
+//            FROM cards c
+//            JOIN patients p ON p.id = c.patient_id
+//            WHERE p.id = ?
+//            """;
     private final static String DELETE_SQL = """
             DELETE FROM cards WHERE id = ?
             """;
@@ -112,6 +119,23 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+//    public List<Card> findCardsByPatientId(Long patientId) {
+//        try (Connection connection = ConnectionManager.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(FIND_CARDS_BY_PATIENT_ID_SQL)) {
+//            statement.setLong(1, patientId);
+//
+//            List<Card> cards = new ArrayList<>();
+//            ResultSet result = statement.executeQuery();
+//            while (result.next()) {
+//                cards.add(getNewCard(result));
+//            }
+//
+//            return cards;
+//        } catch (SQLException e) {
+//            throw new DaoNotCompletedException(DAO_NOT_COMPLETED_EXCEPTION_MESSAGE + e);
+//        }
+//    }
+
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -141,7 +165,7 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
-    private Card getNewCard(ResultSet result) throws SQLException {
+    public Card getNewCard(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 
         return new Card(

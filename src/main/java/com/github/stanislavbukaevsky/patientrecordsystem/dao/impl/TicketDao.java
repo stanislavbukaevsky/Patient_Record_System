@@ -139,7 +139,7 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
-    private Ticket getNewTicket(ResultSet result) throws SQLException {
+    public Ticket getNewTicket(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 
         return new Ticket(

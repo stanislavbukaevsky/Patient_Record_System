@@ -22,7 +22,7 @@ public final class CreateTablesManager {
     private final static String CARDS_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS cards (
                 id BIGSERIAL PRIMARY KEY,
-                patient_id BIGINT NOT NULL REFERENCES patients(id),
+                patient_id BIGINT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
                 appointments VARCHAR(1000),
                 analyzes VARCHAR(1000)
             );
@@ -40,16 +40,16 @@ public final class CreateTablesManager {
     private final static String TICKETS_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS tickets (
                 id BIGSERIAL PRIMARY KEY,
-                doctor_id BIGINT NOT NULL REFERENCES doctors(id),
-                patient_id BIGINT NOT NULL REFERENCES patients(id),
+                doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+                patient_id BIGINT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
                 date_admission TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
             );
             """;
     private final static String DOCTORS_AND_CARDS_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS doctors_and_cards (
                 id BIGSERIAL PRIMARY KEY,
-                doctor_id BIGINT NOT NULL REFERENCES doctors(id),
-                card_id BIGINT NOT NULL REFERENCES cards(id)
+                doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+                card_id BIGINT NOT NULL REFERENCES cards(id) ON DELETE CASCADE
             );
             """;
 

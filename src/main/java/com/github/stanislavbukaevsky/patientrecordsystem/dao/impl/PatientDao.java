@@ -136,7 +136,7 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
-    private Patient getNewPatient(ResultSet result) throws SQLException {
+    public Patient getNewPatient(ResultSet result) throws SQLException {
         return new Patient(
                 result.getLong("id"),
                 result.getString("first_name"),

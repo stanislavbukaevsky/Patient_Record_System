@@ -1,5 +1,6 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.Dao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.DoctorDao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.PatientDao;
@@ -36,7 +37,7 @@ public class TicketService implements Service<TicketRequestDto, TicketRequestUpd
     }
 
     @Override
-    public TicketResponseDto save(TicketRequestDto ticketRequest) {
+    public TicketResponseDto save(TicketRequestDto ticketRequest) throws JsonProcessingException {
         if (ticketRequest == null) {
             throw new TicketNotFoundException(TICKET_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -53,7 +54,7 @@ public class TicketService implements Service<TicketRequestDto, TicketRequestUpd
     }
 
     @Override
-    public TicketResponseDto update(TicketRequestUpdateDto ticketRequest) {
+    public TicketResponseDto update(TicketRequestUpdateDto ticketRequest) throws JsonProcessingException {
         if (ticketRequest == null) {
             throw new TicketNotFoundException(TICKET_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -76,7 +77,7 @@ public class TicketService implements Service<TicketRequestDto, TicketRequestUpd
     }
 
     @Override
-    public TicketResponseDto findById(Long id) {
+    public TicketResponseDto findById(Long id) throws JsonProcessingException {
         Ticket ticket = ticketDao.findById(id).orElseThrow(() ->
                 new TicketNotFoundException(TICKET_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE));
 
@@ -84,7 +85,7 @@ public class TicketService implements Service<TicketRequestDto, TicketRequestUpd
     }
 
     @Override
-    public List<TicketResponseDto> findAll() {
+    public List<TicketResponseDto> findAll() throws JsonProcessingException {
         List<Ticket> tickets = ticketDao.findAll();
         if (tickets.isEmpty()) {
             throw new TicketNotFoundException(TICKET_NOT_FOUND_EXCEPTION_MESSAGE);

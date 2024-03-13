@@ -1,5 +1,6 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.Dao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.CardDao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.PatientDao;
@@ -32,7 +33,7 @@ public class CardService implements Service<CardRequestDto, CardRequestUpdateDto
     }
 
     @Override
-    public CardResponseDto save(CardRequestDto cardRequest) {
+    public CardResponseDto save(CardRequestDto cardRequest) throws JsonProcessingException {
         if (cardRequest == null) {
             throw new CardNotFoundException(CARD_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -46,7 +47,7 @@ public class CardService implements Service<CardRequestDto, CardRequestUpdateDto
     }
 
     @Override
-    public CardResponseDto update(CardRequestUpdateDto cardRequest) {
+    public CardResponseDto update(CardRequestUpdateDto cardRequest) throws JsonProcessingException {
         if (cardRequest == null) {
             throw new CardNotFoundException(CARD_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -66,7 +67,7 @@ public class CardService implements Service<CardRequestDto, CardRequestUpdateDto
     }
 
     @Override
-    public CardResponseDto findById(Long id) {
+    public CardResponseDto findById(Long id) throws JsonProcessingException {
         Card card = cardDao.findById(id).orElseThrow(() ->
                 new CardNotFoundException(CARD_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE));
 
@@ -74,7 +75,7 @@ public class CardService implements Service<CardRequestDto, CardRequestUpdateDto
     }
 
     @Override
-    public List<CardResponseDto> findAll() {
+    public List<CardResponseDto> findAll() throws JsonProcessingException {
         List<Card> cards = cardDao.findAll();
         if (cards.isEmpty()) {
             throw new CardNotFoundException(CARD_NOT_FOUND_EXCEPTION_MESSAGE);

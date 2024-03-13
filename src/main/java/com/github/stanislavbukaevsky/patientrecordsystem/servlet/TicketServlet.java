@@ -2,7 +2,6 @@ package com.github.stanislavbukaevsky.patientrecordsystem.servlet;
 
 import com.github.stanislavbukaevsky.patientrecordsystem.serialization.Serialization;
 import com.github.stanislavbukaevsky.patientrecordsystem.serialization.impl.TicketSerialization;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,22 +14,28 @@ public class TicketServlet extends HttpServlet {
     private final Serialization<HttpServletRequest, HttpServletResponse, String> ticketSerialization = TicketSerialization.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ticketSerialization.responseHeader(resp);
+        String requestHeader = ticketSerialization.requestHeader(req);
+        ticketSerialization.doPost(req, resp, requestHeader);
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ticketSerialization.responseHeader(resp);
+        String requestHeader = ticketSerialization.requestHeader(req);
+        ticketSerialization.doPut(req, resp, requestHeader);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ticketSerialization.responseHeader(resp);
+        ticketSerialization.doGet(req, resp);
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ticketSerialization.responseHeader(resp);
+        ticketSerialization.doDelete(req, resp);
     }
 }

@@ -4,8 +4,14 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+//        String str = "/find/cards-patient/";
+//        String[] split = str.split("/");
+//        System.out.println(split[1]);
+
 //        Dao<Doctor, Long> doctorFind = DoctorDao.getInstance();
-//        Dao<Card, Long> cardFind = CardDao.getInstance();
+//        CardDao cardFind = CardDao.getInstance();
+//        FindByForeignKeyDao cards = FindByForeignKeyDao.getInstance();
+//        System.out.println(cards.findDoctorsAndCardsByDoctorId(2L));
 //        Dao<DoctorAndCard, Long> doctorAndCardDao = DoctorAndCardDao.getInstance();
 //        Doctor doctor = doctorFind.findById(6L).get();
 //        Card card = cardFind.findById(3L).get();
@@ -94,7 +100,7 @@ public class Main {
 //        String sqlTableCards = """
 //                CREATE TABLE IF NOT EXISTS cards (
 //                    id BIGSERIAL PRIMARY KEY,
-//                    patient_id BIGINT NOT NULL REFERENCES patients(id),
+//                    patient_id BIGINT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
 //                    appointments VARCHAR(1000),
 //                    analyzes VARCHAR(1000)
 //                );
@@ -106,16 +112,22 @@ public class Main {
 //                    middle_name VARCHAR(64) NOT NULL,
 //                    last_name VARCHAR(64) NOT NULL,
 //                    specialization VARCHAR(32) NOT NULL,
-//                    office INTEGER NOT NULL,
-//                    card_id BIGINT REFERENCES cards(id)
+//                    office INTEGER NOT NULL
 //                );
 //                """;
 //        String sqlTableTickets = """
 //                CREATE TABLE IF NOT EXISTS tickets (
 //                    id BIGSERIAL PRIMARY KEY,
-//                    doctor_id BIGINT NOT NULL REFERENCES doctors(id),
-//                    patient_id BIGINT NOT NULL REFERENCES patients(id),
+//                    doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+//                    patient_id BIGINT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
 //                    date_admission TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
+//                );
+//                """;
+//        String sqlTableDoctorsAndCards = """
+//                CREATE TABLE IF NOT EXISTS doctors_and_cards (
+//                    id BIGSERIAL PRIMARY KEY,
+//                    doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+//                    card_id BIGINT NOT NULL REFERENCES cards(id) ON DELETE CASCADE
 //                );
 //                """;
 //        try (Connection connection = ConnectionManager.getConnection();
@@ -124,22 +136,9 @@ public class Main {
 //            statement.execute(sqlTableCards);
 //            statement.execute(sqlTableDoctors);
 //            statement.execute(sqlTableTickets);
-//            System.out.println(connection.getTransactionIsolation());
-//            System.out.println(statement.execute(sqlTableTickets));
-//        }
-//        String sqlTableDoctorsAndCards = """
-//                CREATE TABLE IF NOT EXISTS doctors_and_cards (
-//                    id BIGSERIAL PRIMARY KEY,
-//                    doctor_id BIGINT NOT NULL REFERENCES doctors(id),
-//                    card_id BIGINT NOT NULL REFERENCES cards(id)
-//                );
-//                """;
-//
-//        try (Connection connection = ConnectionManager.getConnection();
-//             Statement statement = connection.createStatement()) {
 //            statement.execute(sqlTableDoctorsAndCards);
 //            System.out.println(connection.getTransactionIsolation());
-//            System.out.println(statement.execute(sqlTableDoctorsAndCards));
+//            System.out.println(statement.execute(sqlTableTickets));
 //        }
     }
 }

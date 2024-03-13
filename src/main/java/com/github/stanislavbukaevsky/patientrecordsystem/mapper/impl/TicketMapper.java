@@ -1,5 +1,6 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.mapper.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.TicketRequestDto;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.TicketRequestUpdateDto;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.TicketResponseDto;
@@ -24,7 +25,7 @@ public class TicketMapper implements Mapper<TicketRequestDto, TicketRequestUpdat
     }
 
     @Override
-    public Ticket mappingToEntity(TicketRequestDto ticketRequest) {
+    public Ticket mappingToEntity(TicketRequestDto ticketRequest) throws JsonProcessingException {
         if (ticketRequest == null) {
             return null;
         }
@@ -36,7 +37,7 @@ public class TicketMapper implements Mapper<TicketRequestDto, TicketRequestUpdat
     }
 
     @Override
-    public Ticket mappingByUpdateToEntity(TicketRequestUpdateDto ticketRequest) {
+    public Ticket mappingByUpdateToEntity(TicketRequestUpdateDto ticketRequest) throws JsonProcessingException {
         if (ticketRequest == null) {
             return null;
         }
@@ -49,7 +50,7 @@ public class TicketMapper implements Mapper<TicketRequestDto, TicketRequestUpdat
     }
 
     @Override
-    public TicketResponseDto mappingToDto(Ticket ticket) {
+    public TicketResponseDto mappingToDto(Ticket ticket) throws JsonProcessingException {
         if (ticket == null) {
             return null;
         }
@@ -58,13 +59,13 @@ public class TicketMapper implements Mapper<TicketRequestDto, TicketRequestUpdat
         ticketResponse.setId(ticket.getId());
         ticketResponse.setDoctor(ticket.getDoctor());
         ticketResponse.setPatient(ticket.getPatient());
-        ticketResponse.setDateAdmission(ticket.getDateAdmission());
+        ticketResponse.setDateAdmission(parser.parseString(ticket.getDateAdmission()));
 
         return ticketResponse;
     }
 
     @Override
-    public List<TicketResponseDto> mappingToListDto(List<Ticket> tickets) {
+    public List<TicketResponseDto> mappingToListDto(List<Ticket> tickets) throws JsonProcessingException {
         if (tickets == null) {
             return null;
         }

@@ -4,6 +4,7 @@ import com.github.stanislavbukaevsky.patientrecordsystem.model.Doctor;
 import com.github.stanislavbukaevsky.patientrecordsystem.model.Patient;
 import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -11,22 +12,22 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketResponseDto {
+public class FindByTicketsResponseDto {
     private Long id;
-    private Doctor doctor;
-    private Patient patient;
+    private List<Doctor> doctors;
+    private List<Patient> patients;
     private String dateAdmission;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TicketResponseDto that = (TicketResponseDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(doctor, that.doctor) && Objects.equals(patient, that.patient) && Objects.equals(dateAdmission, that.dateAdmission);
+        FindByTicketsResponseDto that = (FindByTicketsResponseDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(doctors, that.doctors) && Objects.equals(patients, that.patients) && Objects.equals(dateAdmission, that.dateAdmission);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, doctor, patient, dateAdmission);
+        return Objects.hash(id, doctors, patients, dateAdmission);
     }
 }

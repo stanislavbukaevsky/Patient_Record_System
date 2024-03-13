@@ -140,7 +140,7 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
-    private DoctorAndCard getNewDoctorAndCard(ResultSet result) throws SQLException {
+    public DoctorAndCard getNewDoctorAndCard(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 
         return new DoctorAndCard(

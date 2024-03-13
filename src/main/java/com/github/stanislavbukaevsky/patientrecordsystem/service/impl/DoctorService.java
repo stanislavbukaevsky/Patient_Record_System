@@ -1,5 +1,6 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.Dao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dao.impl.DoctorDao;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.DoctorRequestDto;
@@ -28,7 +29,7 @@ public class DoctorService implements Service<DoctorRequestDto, DoctorRequestUpd
     }
 
     @Override
-    public DoctorResponseDto save(DoctorRequestDto doctorRequest) {
+    public DoctorResponseDto save(DoctorRequestDto doctorRequest) throws JsonProcessingException {
         if (doctorRequest == null) {
             throw new DoctorNotFoundException(DOCTOR_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -39,7 +40,7 @@ public class DoctorService implements Service<DoctorRequestDto, DoctorRequestUpd
     }
 
     @Override
-    public DoctorResponseDto update(DoctorRequestUpdateDto doctorRequest) {
+    public DoctorResponseDto update(DoctorRequestUpdateDto doctorRequest) throws JsonProcessingException {
         if (doctorRequest == null) {
             throw new DoctorNotFoundException(DOCTOR_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE);
         }
@@ -56,7 +57,7 @@ public class DoctorService implements Service<DoctorRequestDto, DoctorRequestUpd
     }
 
     @Override
-    public DoctorResponseDto findById(Long id) {
+    public DoctorResponseDto findById(Long id) throws JsonProcessingException {
         Doctor doctor = doctorDao.findById(id).orElseThrow(() ->
                 new DoctorNotFoundException(DOCTOR_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE));
 
@@ -64,7 +65,7 @@ public class DoctorService implements Service<DoctorRequestDto, DoctorRequestUpd
     }
 
     @Override
-    public List<DoctorResponseDto> findAll() {
+    public List<DoctorResponseDto> findAll() throws JsonProcessingException {
         List<Doctor> doctors = doctorDao.findAll();
         if (doctors.isEmpty()) {
             throw new DoctorNotFoundException(DOCTOR_NOT_FOUND_EXCEPTION_MESSAGE);

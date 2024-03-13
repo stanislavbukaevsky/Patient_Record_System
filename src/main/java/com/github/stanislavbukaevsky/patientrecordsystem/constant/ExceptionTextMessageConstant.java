@@ -21,4 +21,7 @@ public class ExceptionTextMessageConstant {
     public static final String TICKET_NOT_FOUND_EXCEPTION_MESSAGE = "Не найдено ни одного талона в базе данных!";
     public static final String TICKET_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE = "Ваш запрос на сохранение или изменение талона содержит пустые поля! Заполните все поля для удачного завершения операции";
     public static final String TICKET_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE = "Талона с таким идентификатором нет в базе данных! Попробуйте ввести другой идентификатор";
+    public static final String DOCTOR_AND_CARD_NOT_FOUND_EXCEPTION_MESSAGE = "Не найдено ни одного врача и карты пациента в базе данных!";
+    public static final String DOCTOR_AND_CARD_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE = "Ваш запрос на сохранение или изменение врача и карты пациента содержит пустые поля! Заполните все поля для удачного завершения операции";
+    public static final String DOCTOR_AND_CARD_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE = "Врача и карты пациента с таким идентификатором нет в базе данных! Попробуйте ввести другой идентификатор";
 }
