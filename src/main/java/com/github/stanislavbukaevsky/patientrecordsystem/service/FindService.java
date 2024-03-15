@@ -6,6 +6,9 @@ import com.github.stanislavbukaevsky.patientrecordsystem.dto.FindByTicketsRespon
 
 import java.util.List;
 
+/**
+ * Интерфейс для бизнес-логики
+ */
 public interface FindService {
     List<FindByCardsResponseDto> findCardsByPatientId(Long patientId);
 

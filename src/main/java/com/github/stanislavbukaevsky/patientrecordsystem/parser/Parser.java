@@ -1,9 +1,13 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.parser;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+/**
+ * Обобщенный интерфейс для парсинга
+ *
+ * @param <L> объект, который хотим получить
+ * @param <S> объект, который хотим преобразовать
+ */
 public interface Parser<L, S> {
     S parseString(L l);
 
-    L parseDateAndTime(S s) throws JsonProcessingException;
+    L parseDateAndTime(S s);
 }

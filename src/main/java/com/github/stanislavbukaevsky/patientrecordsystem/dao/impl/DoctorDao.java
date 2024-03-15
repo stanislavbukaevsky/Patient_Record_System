@@ -12,6 +12,12 @@ import java.util.Optional;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий, который обращается к базе данных для врача.
+ * Реализует интерфейс {@link Dao}. Параметры: <br>
+ * {@link Doctor} - модель врача <br>
+ * {@link Long} - идентификатор <br>
+ */
 public class DoctorDao implements Dao<Doctor, Long> {
     private final static DoctorDao INSTANCE = new DoctorDao();
     private final static String SAVE_SQL = """
@@ -44,6 +50,12 @@ public class DoctorDao implements Dao<Doctor, Long> {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод сохраняет врача в базу данных
+     *
+     * @param doctor модель врача
+     * @return Возвращает сохраненного врача
+     */
     @Override
     public Doctor save(Doctor doctor) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -66,6 +78,12 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Этот метод изменяет информацию о враче в базе данных
+     *
+     * @param doctor модель врача
+     * @return Возвращает измененного врача
+     */
     @Override
     public Doctor update(Doctor doctor) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -84,6 +102,12 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет врача в базе данных по его идентификатору
+     *
+     * @param id идентификатор врача
+     * @return Возвращает найденного врача, обернутого в {@link Optional}
+     */
     @Override
     public Optional<Doctor> findById(Long id) {
         try (Connection connection = ConnectionManager.getConnection()) {
@@ -93,6 +117,11 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет всех врачей, сохраненных в базе данных
+     *
+     * @return Возвращает список врачей
+     */
     @Override
     public List<Doctor> findAll() {
         try (Connection connection = ConnectionManager.getConnection();
@@ -110,6 +139,12 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Этот метод удаляет врача из базы данных
+     *
+     * @param id идентификатор врача
+     * @return Возвращает строку, если удаление прошло успешно
+     */
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -123,6 +158,13 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Перегруженный метод, который ищет врача в базе данных по его идентификатору
+     *
+     * @param id         идентификатор врача
+     * @param connection соединение с базой данных
+     * @return Возвращает найденного врача, обернутого в {@link Optional}
+     */
     public Optional<Doctor> findById(Long id, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setLong(1, id);
@@ -139,6 +181,13 @@ public class DoctorDao implements Dao<Doctor, Long> {
         }
     }
 
+    /**
+     * Этот метод конструирует ответ пользователю
+     *
+     * @param result результирующий набор данных для пользователя
+     * @return Возвращает модель {@link Doctor} с ответом пользователю
+     * @throws SQLException исключение, если возникла ошибка доступа к базе данных
+     */
     private Doctor getNewDoctor(ResultSet result) throws SQLException {
         return new Doctor(
                 result.getLong("id"),

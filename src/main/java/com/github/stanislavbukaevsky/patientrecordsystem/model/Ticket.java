@@ -5,6 +5,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Модель талона
+ */
 @Getter
 @Setter
 @ToString

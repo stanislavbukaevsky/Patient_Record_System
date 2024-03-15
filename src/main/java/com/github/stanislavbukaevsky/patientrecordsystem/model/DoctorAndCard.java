@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * Модель врача и карты пациента
+ */
 @Getter
 @Setter
 @ToString

@@ -8,8 +8,10 @@ import java.sql.Statement;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.TABLE_NOT_CREATED_EXCEPTION_MESSAGE;
 
+/**
+ * Утилитный класс для создания таблиц в базе данных
+ */
 public final class CreateTablesManager {
-    //    private final static CreateTablesManager INSTANCE = new CreateTablesManager();
     private final static String PATIENTS_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS patients (
                 id BIGSERIAL PRIMARY KEY,
@@ -53,28 +55,21 @@ public final class CreateTablesManager {
             );
             """;
 
-    private CreateTablesManager() {
-    }
-
     static {
         initTables();
     }
 
-//    public static CreateTablesManager getInstance() {
-//        return INSTANCE;
-//    }
-
-    private static void initTables() {
+    /**
+     * Этот метод инициализирует таблицы для базы данных
+     */
+    public static void initTables() {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement()) {
-            connection.getTransactionIsolation();
             statement.execute(PATIENTS_TABLE_SQL);
             statement.execute(CARDS_TABLE_SQL);
             statement.execute(DOCTORS_TABLE_SQL);
             statement.execute(TICKETS_TABLE_SQL);
             statement.execute(DOCTORS_AND_CARDS_TABLE_SQL);
-            System.out.println(connection.getTransactionIsolation());
-            System.out.println(statement.execute(DOCTORS_TABLE_SQL));
         } catch (SQLException e) {
             throw new TableNotCreatedException(TABLE_NOT_CREATED_EXCEPTION_MESSAGE + e);
         }

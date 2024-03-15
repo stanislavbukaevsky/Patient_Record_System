@@ -8,6 +8,9 @@ import java.util.Properties;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.PROPERTIES_NOT_LOAD_EXCEPTION_MESSAGE;
 
+/**
+ * Утилитный класс для получения настроек из конфигурационного файла
+ */
 public final class PropertiesConnection {
     private static final Properties PROPERTIES = new Properties();
 
@@ -18,6 +21,12 @@ public final class PropertiesConnection {
         loadProperties();
     }
 
+    /**
+     * Этот метод получает настройки к базе данных по ключу
+     *
+     * @param key ключ для получения настроек
+     * @return Возвращает строку с настройками к базе данных
+     */
     public static String getProperties(String key) {
         return PROPERTIES.getProperty(key);
     }

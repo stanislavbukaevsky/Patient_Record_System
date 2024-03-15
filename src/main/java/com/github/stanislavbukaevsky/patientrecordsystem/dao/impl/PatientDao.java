@@ -12,6 +12,12 @@ import java.util.Optional;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий, который обращается к базе данных для пациента.
+ * Реализует интерфейс {@link Dao}. Параметры: <br>
+ * {@link Patient} - модель пациента <br>
+ * {@link Long} - идентификатор <br>
+ */
 public class PatientDao implements Dao<Patient, Long> {
     private final static PatientDao INSTANCE = new PatientDao();
     private final static String SAVE_SQL = """
@@ -43,6 +49,12 @@ public class PatientDao implements Dao<Patient, Long> {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод сохраняет паиента в базу данных
+     *
+     * @param patient модель пациента
+     * @return Возвращает сохраненного паиента
+     */
     @Override
     public Patient save(Patient patient) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -64,6 +76,12 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Этот метод изменяет паиента в базе данных
+     *
+     * @param patient модель пациента
+     * @return Возвращает измененного паиента
+     */
     @Override
     public Patient update(Patient patient) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -81,6 +99,12 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет паиента в базе данных по его идентификатору
+     *
+     * @param id идентификатор пациента
+     * @return Возвращает найденного пациента, обернутого в {@link Optional}
+     */
     @Override
     public Optional<Patient> findById(Long id) {
         try (Connection connection = ConnectionManager.getConnection()) {
@@ -90,6 +114,11 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет всех пациентов, сохраненных в базе данных
+     *
+     * @return Возвращает список паицентов
+     */
     @Override
     public List<Patient> findAll() {
         try (Connection connection = ConnectionManager.getConnection();
@@ -107,6 +136,12 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Этот метод удаляет паиента из базы данных
+     *
+     * @param id идентификатор пациента
+     * @return Возвращает строку, если удаление прошло успешно
+     */
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -120,6 +155,13 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Перегруженный метод, который ищет паиента в базе данных по его идентификатору
+     *
+     * @param id         идентификатор пациента
+     * @param connection соединение с базой данных
+     * @return Возвращает найденного пациента, обернутого в {@link Optional}
+     */
     public Optional<Patient> findById(Long id, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setLong(1, id);
@@ -136,6 +178,13 @@ public class PatientDao implements Dao<Patient, Long> {
         }
     }
 
+    /**
+     * Этот метод конструирует ответ пользователю
+     *
+     * @param result результирующий набор данных для пользователя
+     * @return Возвращает модель {@link Patient} с ответом пользователю
+     * @throws SQLException исключение, если возникла ошибка доступа к базе данных
+     */
     public Patient getNewPatient(ResultSet result) throws SQLException {
         return new Patient(
                 result.getLong("id"),

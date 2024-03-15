@@ -7,6 +7,9 @@ import lombok.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * DTO для ответа пользователю с информацией о талоне
+ */
 @Getter
 @Setter
 @ToString

@@ -19,6 +19,10 @@ import java.util.List;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.*;
 
+/**
+ * Класс-сервис, с бизнес-логикой для поиска по внешнему ключу.
+ * Реализует интерфейс {@link FindService}.
+ */
 public class FindByForeignKeyService implements FindService {
     private final static FindByForeignKeyService INSTANCE = new FindByForeignKeyService();
     private final FindDao findDao = FindByForeignKeyDao.getInstance();
@@ -31,6 +35,12 @@ public class FindByForeignKeyService implements FindService {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод ищет карту паиента в базе данных по идентификатору пациента
+     *
+     * @param patientId идентификатор пациента
+     * @return Возвращает список dto
+     */
     public List<FindByCardsResponseDto> findCardsByPatientId(Long patientId) {
         List<Card> cards = findDao.findCardsByPatientId(patientId);
         if (cards.isEmpty()) {
@@ -40,6 +50,12 @@ public class FindByForeignKeyService implements FindService {
         return findMapper.mappingForFindCardsByPatientId(cards);
     }
 
+    /**
+     * Этот метод ищет талоны в базе данных по идентификатору врача
+     *
+     * @param doctorId идентификатор врача
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByTicketsResponseDto> findTicketsByDoctorId(Long doctorId) {
         List<Ticket> tickets = findDao.findTicketsByDoctorId(doctorId);
@@ -50,6 +66,12 @@ public class FindByForeignKeyService implements FindService {
         return findMapper.mappingForFindTicketsByForeignKey(tickets);
     }
 
+    /**
+     * Этот метод ищет талоны в базе данных по идентификатору пациента
+     *
+     * @param patientId идентификатор пациента
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByTicketsResponseDto> findTicketsByPatientId(Long patientId) {
         List<Ticket> tickets = findDao.findTicketsByPatientId(patientId);
@@ -60,6 +82,12 @@ public class FindByForeignKeyService implements FindService {
         return findMapper.mappingForFindTicketsByForeignKey(tickets);
     }
 
+    /**
+     * Этот метод ищет врача и карту паиента в базе данных по идентификатору врача
+     *
+     * @param doctorId идентификатор врача
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByDoctorsAndCardsResponseDto> findDoctorsAndCardsByDoctorId(Long doctorId) {
         List<DoctorAndCard> doctorsAndCards = findDao.findDoctorsAndCardsByDoctorId(doctorId);
@@ -70,6 +98,12 @@ public class FindByForeignKeyService implements FindService {
         return findMapper.mappingForFindDoctorsAndCardsByForeignKey(doctorsAndCards);
     }
 
+    /**
+     * Этот метод ищет врача и карту паиента в базе данных по идентификатору карты пациента
+     *
+     * @param cardId идентификатор карты пациента
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByDoctorsAndCardsResponseDto> findDoctorsAndCardsByCardId(Long cardId) {
         List<DoctorAndCard> doctorsAndCards = findDao.findDoctorsAndCardsByCardId(cardId);

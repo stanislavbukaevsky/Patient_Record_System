@@ -9,6 +9,7 @@ public class ExceptionTextMessageConstant {
     public static final String TABLE_NOT_CREATED_EXCEPTION_MESSAGE = "Не удалось создать таблицы для базы данных! ";
     public static final String DAO_NOT_COMPLETED_EXCEPTION_MESSAGE = "Не удалось завершить операцию с базой данных! ";
     public static final String DRIVER_NOT_FOUND_EXCEPTION_MESSAGE = "Не удалось загрузить драйвер для базы данных! ";
+    public static final String DATE_AND_TIME_PARSER_EXCEPTION_MESSAGE = "Вы неправильно ввели дату и время! Дата и время должны быть в следующем формате: yyyy-MM-dd HH:mm! Где " + "\n" + "yyyy - это год " + "\n" + "MM - это месяц " + "\n" + "dd - это день " + "\n" + "HH - это часы " + "\n" + "mm - это минуты. " + "\n";
     public static final String PATIENT_NOT_FOUND_EXCEPTION_MESSAGE = "Не найдено ни одного пациента в базе данных!";
     public static final String PATIENT_NOT_FOUND_EXCEPTION_BY_SAVE_AND_UPDATE_MESSAGE = "Ваш запрос на сохранение или изменение пациента содержит пустые поля! Заполните все поля для удачного завершения операции";
     public static final String PATIENT_NOT_FOUND_EXCEPTION_BY_FIND_AND_DELETE_MESSAGE = "Пациента с таким идентификатором нет в базе данных! Попробуйте ввести другой идентификатор";

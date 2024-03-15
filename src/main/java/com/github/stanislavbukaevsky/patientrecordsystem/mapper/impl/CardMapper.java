@@ -9,6 +9,14 @@ import com.github.stanislavbukaevsky.patientrecordsystem.model.Card;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс-маппер, который преобразует модель в dto и обратно.
+ * Реализует интерфейс {@link Mapper}. Параметры: <br>
+ * {@link CardRequestDto} - DTO для запроса пользователя на сохранение карты пациента <br>
+ * {@link CardRequestUpdateDto} - DTO для запроса пользователя на изменение карты пациента <br>
+ * {@link CardResponseDto} - DTO для ответа пользователю с информацией о карте пациента <br>
+ * {@link Card} - модель карты пациента <br>
+ */
 public class CardMapper implements Mapper<CardRequestDto, CardRequestUpdateDto, CardResponseDto, Card> {
     private final static CardMapper INSTANCE = new CardMapper();
 
@@ -19,6 +27,12 @@ public class CardMapper implements Mapper<CardRequestDto, CardRequestUpdateDto, 
         return INSTANCE;
     }
 
+    /**
+     * Этот метод преобразует ответ пользователя из dto в модель
+     *
+     * @param cardRequest ответ пользователя
+     * @return Возвращает модель карты пациента
+     */
     @Override
     public Card mappingToEntity(CardRequestDto cardRequest) {
         if (cardRequest == null) {
@@ -32,6 +46,12 @@ public class CardMapper implements Mapper<CardRequestDto, CardRequestUpdateDto, 
         return card;
     }
 
+    /**
+     * Этот метод преобразует ответ пользователя из dto в модель
+     *
+     * @param cardRequest ответ пользователя
+     * @return Возвращает модель карты пациента
+     */
     @Override
     public Card mappingByUpdateToEntity(CardRequestUpdateDto cardRequest) {
         if (cardRequest == null) {
@@ -46,6 +66,12 @@ public class CardMapper implements Mapper<CardRequestDto, CardRequestUpdateDto, 
         return card;
     }
 
+    /**
+     * Этот метод преобразует модель карты пациента в dto
+     *
+     * @param card модель карты пациента
+     * @return Возвращает ответ пользователю
+     */
     @Override
     public CardResponseDto mappingToDto(Card card) {
         if (card == null) {
@@ -61,6 +87,12 @@ public class CardMapper implements Mapper<CardRequestDto, CardRequestUpdateDto, 
         return cardResponse;
     }
 
+    /**
+     * Этот метод преобразует список моделей карт пациента в dto
+     *
+     * @param cards список карт пациента
+     * @return Возвращает список dto
+     */
     @Override
     public List<CardResponseDto> mappingToListDto(List<Card> cards) {
         if (cards == null) {

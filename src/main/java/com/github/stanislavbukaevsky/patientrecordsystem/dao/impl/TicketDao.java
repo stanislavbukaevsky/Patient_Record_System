@@ -12,6 +12,12 @@ import java.util.Optional;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий, который обращается к базе данных для талона.
+ * Реализует интерфейс {@link Dao}. Параметры: <br>
+ * {@link Ticket} - модель талона <br>
+ * {@link Long} - идентификатор <br>
+ */
 public class TicketDao implements Dao<Ticket, Long> {
     private final static TicketDao INSTANCE = new TicketDao();
     private final DoctorDao doctorDao = DoctorDao.getInstance();
@@ -55,6 +61,12 @@ public class TicketDao implements Dao<Ticket, Long> {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод сохраняет талон в базу данных
+     *
+     * @param ticket модель талона
+     * @return Возвращает сохраненный талон
+     */
     @Override
     public Ticket save(Ticket ticket) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -75,6 +87,12 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
+    /**
+     * Этот метод изменяет талон в базе данных
+     *
+     * @param ticket модель талона
+     * @return Возвращает измененный талон
+     */
     @Override
     public Ticket update(Ticket ticket) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -91,6 +109,12 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет талон в базе данных по его идентификатору
+     *
+     * @param id идентификатор талона
+     * @return Возвращает найденный талон, обернутый в {@link Optional}
+     */
     @Override
     public Optional<Ticket> findById(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -109,6 +133,11 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет все талоны, сохраненные в базе данных
+     *
+     * @return Возвращает список талонов
+     */
     @Override
     public List<Ticket> findAll() {
         try (Connection connection = ConnectionManager.getConnection();
@@ -126,6 +155,12 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
+    /**
+     * Этот метод удаляет талон из базы данных
+     *
+     * @param id идентификатор талона
+     * @return Возвращает строку, если удаление прошло успешно
+     */
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -139,6 +174,13 @@ public class TicketDao implements Dao<Ticket, Long> {
         }
     }
 
+    /**
+     * Этот метод конструирует ответ пользователю
+     *
+     * @param result результирующий набор данных для пользователя
+     * @return Возвращает модель {@link Ticket} с ответом пользователю
+     * @throws SQLException исключение, если возникла ошибка доступа к базе данных
+     */
     public Ticket getNewTicket(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 

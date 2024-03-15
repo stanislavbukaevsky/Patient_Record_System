@@ -15,6 +15,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * Класс для сериализации в JSON формат для талона.
+ * Реализует интерфейс {@link Serialization}. Параметры: <br>
+ * {@link HttpServletRequest} - запрос пользователя <br>
+ * {@link HttpServletResponse} - ответ пользователю <br>
+ * {@link String} - объект строки
+ */
 public class TicketSerialization implements Serialization<HttpServletRequest, HttpServletResponse, String> {
     private final static TicketSerialization INSTANCE = new TicketSerialization();
     private final Service<TicketRequestDto, TicketRequestUpdateDto, TicketResponseDto, Long> ticketService = TicketService.getInstance();
@@ -27,6 +34,14 @@ public class TicketSerialization implements Serialization<HttpServletRequest, Ht
         return INSTANCE;
     }
 
+    /**
+     * Этот метод преобразует в JSON для сохранения талона
+     *
+     * @param request       запрос пользователя
+     * @param response      ответ пользователю
+     * @param requestHeader запрос пользователя, преобразованный в строку
+     * @throws IOException исключение ввода/вывода
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response, String requestHeader) throws IOException {
         String answer = "";
@@ -50,6 +65,14 @@ public class TicketSerialization implements Serialization<HttpServletRequest, Ht
         printWriter.flush();
     }
 
+    /**
+     * Этот метод преобразует в JSON для изменения талона
+     *
+     * @param request       запрос пользователя
+     * @param response      ответ пользователю
+     * @param requestHeader запрос пользователя, преобразованный в строку
+     * @throws IOException исключение ввода/вывода
+     */
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response, String requestHeader) throws IOException {
         String answer = "";
@@ -73,6 +96,13 @@ public class TicketSerialization implements Serialization<HttpServletRequest, Ht
         printWriter.flush();
     }
 
+    /**
+     * Этот метод преобразует в JSON для получения талона
+     *
+     * @param request  запрос пользователя
+     * @param response ответ пользователю
+     * @throws IOException исключение ввода/вывода
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String answer = "";
@@ -103,6 +133,13 @@ public class TicketSerialization implements Serialization<HttpServletRequest, Ht
         printWriter.flush();
     }
 
+    /**
+     * Этот метод преобразует в JSON для удаления талона
+     *
+     * @param request  запрос пользователя
+     * @param response ответ пользователю
+     * @throws IOException исключение ввода/вывода
+     */
     @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String answer = "";

@@ -12,6 +12,12 @@ import java.util.Optional;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий, который обращается к базе данных для карт пациента.
+ * Реализует интерфейс {@link Dao}. Параметры: <br>
+ * {@link Card} - модель карты пациента <br>
+ * {@link Long} - идентификатор <br>
+ */
 public class CardDao implements Dao<Card, Long> {
     private final static CardDao INSTANCE = new CardDao();
     private final PatientDao patientDao = PatientDao.getInstance();
@@ -39,13 +45,6 @@ public class CardDao implements Dao<Card, Long> {
             FROM cards c
             JOIN patients p ON p.id = c.patient_id
             """;
-    //    private final static String FIND_CARDS_BY_PATIENT_ID_SQL = """
-//            SELECT c.id, c.patient_id, c.appointments, c.analyzes,
-//                   p.first_name, p.middle_name, p.last_name, p.date_birth
-//            FROM cards c
-//            JOIN patients p ON p.id = c.patient_id
-//            WHERE p.id = ?
-//            """;
     private final static String DELETE_SQL = """
             DELETE FROM cards WHERE id = ?
             """;
@@ -57,6 +56,12 @@ public class CardDao implements Dao<Card, Long> {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод сохраняет карту паиента в базу данных
+     *
+     * @param card модель карты пациента
+     * @return Возвращает сохраненную карту паиента
+     */
     @Override
     public Card save(Card card) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -77,6 +82,12 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+    /**
+     * Этот метод изменяет карту паиента в базе данных
+     *
+     * @param card модель карты пациента
+     * @return Возвращает измененную карту паиента
+     */
     @Override
     public Card update(Card card) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -93,6 +104,12 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет карту паиента в базе данных по ее идентификатору
+     *
+     * @param id идентификатор карты пациента
+     * @return Возвращает найденную карту пациента, обернутую в {@link Optional}
+     */
     @Override
     public Optional<Card> findById(Long id) {
         try (Connection connection = ConnectionManager.getConnection()) {
@@ -102,6 +119,11 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет все карты пациента, сохраненные в базе данных
+     *
+     * @return Возвращает список карт паицента
+     */
     @Override
     public List<Card> findAll() {
         try (Connection connection = ConnectionManager.getConnection();
@@ -119,23 +141,12 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
-//    public List<Card> findCardsByPatientId(Long patientId) {
-//        try (Connection connection = ConnectionManager.getConnection();
-//             PreparedStatement statement = connection.prepareStatement(FIND_CARDS_BY_PATIENT_ID_SQL)) {
-//            statement.setLong(1, patientId);
-//
-//            List<Card> cards = new ArrayList<>();
-//            ResultSet result = statement.executeQuery();
-//            while (result.next()) {
-//                cards.add(getNewCard(result));
-//            }
-//
-//            return cards;
-//        } catch (SQLException e) {
-//            throw new DaoNotCompletedException(DAO_NOT_COMPLETED_EXCEPTION_MESSAGE + e);
-//        }
-//    }
-
+    /**
+     * Этот метод удаляет карту паиента из базы данных
+     *
+     * @param id идентификатор карты пациента
+     * @return Возвращает строку, если удаление прошло успешно
+     */
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -149,6 +160,13 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+    /**
+     * Перегруженный метод, который ищет карту паиента в базе данных по ее идентификатору
+     *
+     * @param id         идентификатор карты пациента
+     * @param connection соединение с базой данных
+     * @return Возвращает найденную карту пациента, обернутую в {@link Optional}
+     */
     public Optional<Card> findById(Long id, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setLong(1, id);
@@ -165,6 +183,13 @@ public class CardDao implements Dao<Card, Long> {
         }
     }
 
+    /**
+     * Этот метод конструирует ответ пользователю
+     *
+     * @param result результирующий набор данных для пользователя
+     * @return Возвращает модель {@link Card} с ответом пользователю
+     * @throws SQLException исключение, если возникла ошибка доступа к базе данных
+     */
     public Card getNewCard(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 

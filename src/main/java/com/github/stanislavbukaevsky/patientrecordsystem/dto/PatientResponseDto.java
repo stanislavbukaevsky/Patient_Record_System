@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * DTO для ответа пользователю с информацией о пациенте
+ */
 @Getter
 @Setter
 @ToString
@@ -15,6 +18,13 @@ public class PatientResponseDto {
     private String middleName;
     private String lastName;
     private String dateBirth;
+
+    public PatientResponseDto(String firstName, String middleName, String lastName, String dateBirth) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateBirth = dateBirth;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -16,6 +16,10 @@ import java.util.List;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий с методами поиска по внешнему ключу.
+ * Реализует интерфейс {@link FindDao}. Параметры: <br>
+ */
 public class FindByForeignKeyDao implements FindDao {
     private final static FindByForeignKeyDao INSTANCE = new FindByForeignKeyDao();
     private final CardDao cardDao = CardDao.getInstance();
@@ -76,6 +80,12 @@ public class FindByForeignKeyDao implements FindDao {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод ищет все карты паиента по идентификатору пациента
+     *
+     * @param patientId идентификатор пациента
+     * @return Возвращает список карт пациента
+     */
     @Override
     public List<Card> findCardsByPatientId(Long patientId) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -94,21 +104,45 @@ public class FindByForeignKeyDao implements FindDao {
         }
     }
 
+    /**
+     * Этот метод ищет все талоны по идентификатору врача
+     *
+     * @param doctorId идентификатор врача
+     * @return Возвращает список талонов
+     */
     @Override
     public List<Ticket> findTicketsByDoctorId(Long doctorId) {
         return getResponseTickets(doctorId, FIND_TICKETS_BY_DOCTOR_ID_SQL);
     }
 
+    /**
+     * Этот метод ищет все талоны по идентификатору пациента
+     *
+     * @param patientId идентификатор пациента
+     * @return Возвращает список талонов
+     */
     @Override
     public List<Ticket> findTicketsByPatientId(Long patientId) {
         return getResponseTickets(patientId, FIND_TICKETS_BY_PATIENT_ID_SQL);
     }
 
+    /**
+     * Этот метод ищет всех врачей и карт пациента по идентификатору врача
+     *
+     * @param doctorId идентификатор врача
+     * @return Возвращает список врачей и карт пациента
+     */
     @Override
     public List<DoctorAndCard> findDoctorsAndCardsByDoctorId(Long doctorId) {
         return getResponseDoctorAndCards(doctorId, FIND_DOCTORS_AND_CARDS_BY_DOCTOR_ID_SQL);
     }
 
+    /**
+     * Этот метод ищет всех врачей и карт пациента по идентификатору карты пациента
+     *
+     * @param cardId идентификатор карты пациента
+     * @return Возвращает список врачей и карт пациента
+     */
     @Override
     public List<DoctorAndCard> findDoctorsAndCardsByCardId(Long cardId) {
         return getResponseDoctorAndCards(cardId, FIND_DOCTORS_AND_CARDS_BY_CARD_ID_SQL);

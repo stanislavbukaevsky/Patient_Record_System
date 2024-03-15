@@ -9,6 +9,9 @@ import com.github.stanislavbukaevsky.patientrecordsystem.model.Ticket;
 
 import java.util.List;
 
+/**
+ * Интерфейс для маппера с методами поиска по внешнему ключу
+ */
 public interface FindMapper {
     List<FindByCardsResponseDto> mappingForFindCardsByPatientId(List<Card> cards);
 

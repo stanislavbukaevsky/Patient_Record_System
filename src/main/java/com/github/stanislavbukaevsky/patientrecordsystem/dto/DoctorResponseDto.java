@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * DTO для ответа пользователю с информацией о враче
+ */
 @Getter
 @Setter
 @ToString

@@ -1,6 +1,5 @@
 package com.github.stanislavbukaevsky.patientrecordsystem.mapper.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.DoctorAndCardRequestDto;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.DoctorAndCardRequestUpdateDto;
 import com.github.stanislavbukaevsky.patientrecordsystem.dto.DoctorAndCardResponseDto;
@@ -10,6 +9,14 @@ import com.github.stanislavbukaevsky.patientrecordsystem.model.DoctorAndCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс-маппер, который преобразует модель в dto и обратно.
+ * Реализует интерфейс {@link Mapper}. Параметры: <br>
+ * {@link DoctorAndCardRequestDto} - DTO для запроса пользователя на сохранение врача и карты пациента <br>
+ * {@link DoctorAndCardRequestUpdateDto} - DTO для запроса пользователя на изменение врача и карты пациента <br>
+ * {@link DoctorAndCardResponseDto} - DTO для ответа пользователю с информацией о враче и карте пациента <br>
+ * {@link DoctorAndCard} - модель врача и карты пациента <br>
+ */
 public class DoctorAndCardMapper implements Mapper<DoctorAndCardRequestDto, DoctorAndCardRequestUpdateDto, DoctorAndCardResponseDto, DoctorAndCard> {
     private final static DoctorAndCardMapper INSTANCE = new DoctorAndCardMapper();
 
@@ -20,8 +27,14 @@ public class DoctorAndCardMapper implements Mapper<DoctorAndCardRequestDto, Doct
         return INSTANCE;
     }
 
+    /**
+     * Этот метод преобразует ответ пользователя из dto в модель
+     *
+     * @param doctorAndCardRequest ответ пользователя
+     * @return Возвращает модель врача и карты пациента
+     */
     @Override
-    public DoctorAndCard mappingToEntity(DoctorAndCardRequestDto doctorAndCardRequest) throws JsonProcessingException {
+    public DoctorAndCard mappingToEntity(DoctorAndCardRequestDto doctorAndCardRequest) {
         if (doctorAndCardRequest == null) {
             return null;
         }
@@ -29,8 +42,14 @@ public class DoctorAndCardMapper implements Mapper<DoctorAndCardRequestDto, Doct
         return new DoctorAndCard();
     }
 
+    /**
+     * Этот метод преобразует ответ пользователя из dto в модель
+     *
+     * @param doctorAndCardRequest ответ пользователя
+     * @return Возвращает модель врача и карты пациента
+     */
     @Override
-    public DoctorAndCard mappingByUpdateToEntity(DoctorAndCardRequestUpdateDto doctorAndCardRequest) throws JsonProcessingException {
+    public DoctorAndCard mappingByUpdateToEntity(DoctorAndCardRequestUpdateDto doctorAndCardRequest) {
         if (doctorAndCardRequest == null) {
             return null;
         }
@@ -41,8 +60,14 @@ public class DoctorAndCardMapper implements Mapper<DoctorAndCardRequestDto, Doct
         return doctorAndCard;
     }
 
+    /**
+     * Этот метод преобразует модель врача и карты пациента в dto
+     *
+     * @param doctorAndCard модель врача и карты пациента
+     * @return Возвращает ответ пользователю
+     */
     @Override
-    public DoctorAndCardResponseDto mappingToDto(DoctorAndCard doctorAndCard) throws JsonProcessingException {
+    public DoctorAndCardResponseDto mappingToDto(DoctorAndCard doctorAndCard) {
         if (doctorAndCard == null) {
             return null;
         }
@@ -55,8 +80,14 @@ public class DoctorAndCardMapper implements Mapper<DoctorAndCardRequestDto, Doct
         return doctorAndCardResponse;
     }
 
+    /**
+     * Этот метод преобразует список моделей врачей и карт пациента в dto
+     *
+     * @param doctorAndCards список врачей и карт пациента
+     * @return Возвращает список dto
+     */
     @Override
-    public List<DoctorAndCardResponseDto> mappingToListDto(List<DoctorAndCard> doctorAndCards) throws JsonProcessingException {
+    public List<DoctorAndCardResponseDto> mappingToListDto(List<DoctorAndCard> doctorAndCards) {
         if (doctorAndCards == null) {
             return null;
         }

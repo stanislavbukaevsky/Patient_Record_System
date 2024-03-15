@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * DTO для запроса пользователя на изменение врача и карты пациента
+ */
 @Getter
 @Setter
 @ToString

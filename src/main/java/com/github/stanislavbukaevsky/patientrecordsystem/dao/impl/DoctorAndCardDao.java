@@ -12,6 +12,12 @@ import java.util.Optional;
 
 import static com.github.stanislavbukaevsky.patientrecordsystem.constant.ExceptionTextMessageConstant.DAO_NOT_COMPLETED_EXCEPTION_MESSAGE;
 
+/**
+ * Класс-репозиторий, который обращается к базе данных для врача и карты пациента.
+ * Реализует интерфейс {@link Dao}. Параметры: <br>
+ * {@link DoctorAndCard} - модель врача и карты пациента <br>
+ * {@link Long} - идентификатор <br>
+ */
 public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
     private final static DoctorAndCardDao INSTANCE = new DoctorAndCardDao();
     private final DoctorDao doctorDao = DoctorDao.getInstance();
@@ -58,6 +64,12 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод сохраняет врача и карту паиента в базу данных
+     *
+     * @param doctorAndCard модель врача и карты пациента
+     * @return Возвращает сохраненного врача и карту паиента
+     */
     @Override
     public DoctorAndCard save(DoctorAndCard doctorAndCard) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -77,6 +89,12 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
+    /**
+     * Этот метод изменяет врача и карту паиента в базе данных
+     *
+     * @param doctorAndCard модель врача и карты пациента
+     * @return Возвращает измененного врача и карту паиента
+     */
     @Override
     public DoctorAndCard update(DoctorAndCard doctorAndCard) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -92,6 +110,12 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет врача и карту паиента в базе данных по их идентификатору
+     *
+     * @param id идентификатор врача и карты пациента
+     * @return Возвращает найденного врача и карту пациента, обернутую в {@link Optional}
+     */
     @Override
     public Optional<DoctorAndCard> findById(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -110,6 +134,11 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
+    /**
+     * Этот метод ищет всех врачей и карты пациента, сохраненные в базе данных
+     *
+     * @return Возвращает список врачей и карт паицента
+     */
     @Override
     public List<DoctorAndCard> findAll() {
         try (Connection connection = ConnectionManager.getConnection();
@@ -127,6 +156,12 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
+    /**
+     * Этот метод удаляет врача и карту паиента из базы данных
+     *
+     * @param id идентификатор врача и карты пациента
+     * @return Возвращает строку, если удаление прошло успешно
+     */
     @Override
     public String delete(Long id) {
         try (Connection connection = ConnectionManager.getConnection();
@@ -140,6 +175,13 @@ public class DoctorAndCardDao implements Dao<DoctorAndCard, Long> {
         }
     }
 
+    /**
+     * Этот метод конструирует ответ пользователю
+     *
+     * @param result результирующий набор данных для пользователя
+     * @return Возвращает модель {@link DoctorAndCard} с ответом пользователю
+     * @throws SQLException исключение, если возникла ошибка доступа к базе данных
+     */
     public DoctorAndCard getNewDoctorAndCard(ResultSet result) throws SQLException {
         Connection connection = result.getStatement().getConnection();
 

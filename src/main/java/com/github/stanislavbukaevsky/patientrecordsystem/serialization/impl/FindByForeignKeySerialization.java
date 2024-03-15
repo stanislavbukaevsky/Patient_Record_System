@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * Класс для сериализации в JSON формат для поиска по внешнему ключу.
+ * Реализует интерфейс {@link FindSerialization}. Параметры: <br>
+ * {@link HttpServletRequest} - запрос пользователя <br>
+ * {@link HttpServletResponse} - ответ пользователю <br>
+ */
 public class FindByForeignKeySerialization implements FindSerialization<HttpServletRequest, HttpServletResponse> {
     private final static FindByForeignKeySerialization INSTANCE = new FindByForeignKeySerialization();
     private final FindService findService = FindByForeignKeyService.getInstance();
@@ -27,6 +33,13 @@ public class FindByForeignKeySerialization implements FindSerialization<HttpServ
         return INSTANCE;
     }
 
+    /**
+     * Этот метод преобразует в JSON для получения всех запросов для поиска по внешнему ключу
+     *
+     * @param request  запрос пользователя
+     * @param response ответ пользователю
+     * @throws IOException исключение ввода/вывода
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String answer = "";
 

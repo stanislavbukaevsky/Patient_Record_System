@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * Модель пациента
+ */
 @Getter
 @Setter
 @ToString

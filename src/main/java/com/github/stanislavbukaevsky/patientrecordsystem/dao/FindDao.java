@@ -6,6 +6,9 @@ import com.github.stanislavbukaevsky.patientrecordsystem.model.Ticket;
 
 import java.util.List;
 
+/**
+ * Интерфейс для dao с методами поиска по внешнему ключу
+ */
 public interface FindDao {
     List<Card> findCardsByPatientId(Long patientId);
 

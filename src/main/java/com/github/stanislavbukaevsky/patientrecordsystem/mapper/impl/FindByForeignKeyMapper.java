@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Класс-маппер, который преобразует модель в dto и обратно.
+ * Реализует интерфейс {@link FindMapper}.
+ */
 public class FindByForeignKeyMapper implements FindMapper {
     private final static FindByForeignKeyMapper INSTANCE = new FindByForeignKeyMapper();
     private final Parser<LocalDateTime, String> parser = DateAndTimeParser.getInstance();
@@ -26,6 +30,12 @@ public class FindByForeignKeyMapper implements FindMapper {
         return INSTANCE;
     }
 
+    /**
+     * Этот метод преобразует список моделей карт пациента в dto
+     *
+     * @param cards список карт пациента
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByCardsResponseDto> mappingForFindCardsByPatientId(List<Card> cards) {
         if (cards == null) {
@@ -45,6 +55,12 @@ public class FindByForeignKeyMapper implements FindMapper {
         return cardsResponse;
     }
 
+    /**
+     * Этот метод преобразует список моделей талонов в dto
+     *
+     * @param tickets список талонов
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByTicketsResponseDto> mappingForFindTicketsByForeignKey(List<Ticket> tickets) {
         if (tickets == null) {
@@ -64,6 +80,12 @@ public class FindByForeignKeyMapper implements FindMapper {
         return ticketsResponse;
     }
 
+    /**
+     * Этот метод преобразует список моделей врачей и карт пациента в dto
+     *
+     * @param doctorsAndCards список врачей и карт пациента
+     * @return Возвращает список dto
+     */
     @Override
     public List<FindByDoctorsAndCardsResponseDto> mappingForFindDoctorsAndCardsByForeignKey(List<DoctorAndCard> doctorsAndCards) {
         if (doctorsAndCards == null) {
