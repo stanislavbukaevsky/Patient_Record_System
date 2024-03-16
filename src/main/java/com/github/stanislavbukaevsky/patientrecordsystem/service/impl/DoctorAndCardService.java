@@ -31,12 +31,21 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  */
 public class DoctorAndCardService implements Service<DoctorAndCardRequestDto, DoctorAndCardRequestUpdateDto, DoctorAndCardResponseDto, Long> {
     private final static DoctorAndCardService INSTANCE = new DoctorAndCardService();
-    private final Dao<DoctorAndCard, Long> doctorAndCardDao = DoctorAndCardDao.getInstance();
-    private final Dao<Doctor, Long> doctorDao = DoctorDao.getInstance();
-    private final Dao<Card, Long> cardDao = CardDao.getInstance();
+    private final Dao<DoctorAndCard, Long> doctorAndCardDao;
+    private final Dao<Doctor, Long> doctorDao;
+    private final Dao<Card, Long> cardDao;
     private final Mapper<DoctorAndCardRequestDto, DoctorAndCardRequestUpdateDto, DoctorAndCardResponseDto, DoctorAndCard> doctorAndCardMapper = DoctorAndCardMapper.getInstance();
 
+    public DoctorAndCardService(Dao<DoctorAndCard, Long> doctorAndCardDao, Dao<Doctor, Long> doctorDao, Dao<Card, Long> cardDao) {
+        this.doctorAndCardDao = doctorAndCardDao;
+        this.doctorDao = doctorDao;
+        this.cardDao = cardDao;
+    }
+
     private DoctorAndCardService() {
+        this.doctorAndCardDao = DoctorAndCardDao.getInstance();
+        this.doctorDao = DoctorDao.getInstance();
+        this.cardDao = CardDao.getInstance();
     }
 
     public static DoctorAndCardService getInstance() {

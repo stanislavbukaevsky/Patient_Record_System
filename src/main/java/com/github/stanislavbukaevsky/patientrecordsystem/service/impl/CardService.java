@@ -28,11 +28,18 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  */
 public class CardService implements Service<CardRequestDto, CardRequestUpdateDto, CardResponseDto, Long> {
     private final static CardService INSTANCE = new CardService();
-    private final Dao<Card, Long> cardDao = CardDao.getInstance();
-    private final Dao<Patient, Long> patientDao = PatientDao.getInstance();
+    private final Dao<Card, Long> cardDao;
+    private final Dao<Patient, Long> patientDao;
     private final Mapper<CardRequestDto, CardRequestUpdateDto, CardResponseDto, Card> cardMapper = CardMapper.getInstance();
 
+    public CardService(Dao<Card, Long> cardDao, Dao<Patient, Long> patientDao) {
+        this.cardDao = cardDao;
+        this.patientDao = patientDao;
+    }
+
     private CardService() {
+        this.cardDao = CardDao.getInstance();
+        this.patientDao = PatientDao.getInstance();
     }
 
     public static CardService getInstance() {

@@ -25,10 +25,15 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  */
 public class DoctorService implements Service<DoctorRequestDto, DoctorRequestUpdateDto, DoctorResponseDto, Long> {
     private final static DoctorService INSTANCE = new DoctorService();
-    private final Dao<Doctor, Long> doctorDao = DoctorDao.getInstance();
+    private final Dao<Doctor, Long> doctorDao;
     private final Mapper<DoctorRequestDto, DoctorRequestUpdateDto, DoctorResponseDto, Doctor> doctorMapper = DoctorMapper.getInstance();
 
+    public DoctorService(Dao<Doctor, Long> doctorDao) {
+        this.doctorDao = doctorDao;
+    }
+
     private DoctorService() {
+        this.doctorDao = DoctorDao.getInstance();
     }
 
     public static DoctorService getInstance() {

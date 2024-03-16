@@ -31,12 +31,21 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  */
 public class TicketService implements Service<TicketRequestDto, TicketRequestUpdateDto, TicketResponseDto, Long> {
     private final static TicketService INSTANCE = new TicketService();
-    private final Dao<Ticket, Long> ticketDao = TicketDao.getInstance();
-    private final Dao<Doctor, Long> doctorDao = DoctorDao.getInstance();
-    private final Dao<Patient, Long> patientDao = PatientDao.getInstance();
+    private final Dao<Ticket, Long> ticketDao;
+    private final Dao<Doctor, Long> doctorDao;
+    private final Dao<Patient, Long> patientDao;
     private final Mapper<TicketRequestDto, TicketRequestUpdateDto, TicketResponseDto, Ticket> ticketMapper = TicketMapper.getInstance();
 
+    public TicketService(Dao<Ticket, Long> ticketDao, Dao<Doctor, Long> doctorDao, Dao<Patient, Long> patientDao) {
+        this.ticketDao = ticketDao;
+        this.doctorDao = doctorDao;
+        this.patientDao = patientDao;
+    }
+
     private TicketService() {
+        this.ticketDao = TicketDao.getInstance();
+        this.doctorDao = DoctorDao.getInstance();
+        this.patientDao = PatientDao.getInstance();
     }
 
     public static TicketService getInstance() {

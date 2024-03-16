@@ -12,6 +12,7 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  * Утилитный класс для создания таблиц в базе данных
  */
 public final class CreateTablesManager {
+    private final static CreateTablesManager INSTANCE = new CreateTablesManager();
     private final static String PATIENTS_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS patients (
                 id BIGSERIAL PRIMARY KEY,
@@ -55,14 +56,17 @@ public final class CreateTablesManager {
             );
             """;
 
-    static {
-        initTables();
+    private CreateTablesManager() {
+    }
+
+    public static CreateTablesManager getInstance() {
+        return INSTANCE;
     }
 
     /**
      * Этот метод инициализирует таблицы для базы данных
      */
-    public static void initTables() {
+    public void initTables() {
         try (Connection connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(PATIENTS_TABLE_SQL);
@@ -70,6 +74,7 @@ public final class CreateTablesManager {
             statement.execute(DOCTORS_TABLE_SQL);
             statement.execute(TICKETS_TABLE_SQL);
             statement.execute(DOCTORS_AND_CARDS_TABLE_SQL);
+            System.out.println("Таблицы для базы данных созданы!");
         } catch (SQLException e) {
             throw new TableNotCreatedException(TABLE_NOT_CREATED_EXCEPTION_MESSAGE + e);
         }

@@ -25,10 +25,15 @@ import static com.github.stanislavbukaevsky.patientrecordsystem.constant.Excepti
  */
 public class FindByForeignKeyService implements FindService {
     private final static FindByForeignKeyService INSTANCE = new FindByForeignKeyService();
-    private final FindDao findDao = FindByForeignKeyDao.getInstance();
+    private final FindDao findDao;
     private final FindMapper findMapper = FindByForeignKeyMapper.getInstance();
 
+    public FindByForeignKeyService(FindDao findDao) {
+        this.findDao = findDao;
+    }
+
     private FindByForeignKeyService() {
+        this.findDao = FindByForeignKeyDao.getInstance();
     }
 
     public static FindByForeignKeyService getInstance() {
